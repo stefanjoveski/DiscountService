@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}">
+<head>
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}"/>
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>
+    <meta charset="UTF-8">
+    <title>User Discount Types</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-header">User Discount Types</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">ID</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Activate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" th:each="discountType:${listDiscountTypes}" th:order-by="${discountType.getDiscountTypeId()}">
+                        <td th:text="${discountType.getDiscountTypeId()}"></td>
+                        <td th:text="${discountType.getCategory()}"></td>
+                        <td>
+                            <a class="btn btn-danger"
+                               th:href="@{/discount-type/bulkDeactivation(discountTypeId=${discountType.getDiscountTypeId()})}">Deactivate All</a>
+                        </td>
+                    </tr>
+                    <tr class="text-center" th:each="discountType:${otherDiscountTypes}" th:order-by="${discountType.getDiscountTypeId()}">
+                        <td th:text="${discountType.getDiscountTypeId()}"></td>
+                        <td th:text="${discountType.getCategory()}"></td>
+                        <td>
+                            <a class="btn btn-success"
+                               th:href="@{/discount-type/bulkActivation(discountTypeId=${discountType.getDiscountTypeId()})}">Activate All</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://localhost.com/discount"
+           targetNamespace="http://localhost.com/discount" elementFormDefault="qualified">
+    <!--    GET Discount by ID-->
+    <xs:element name="getDiscountByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="discountId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDiscountByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="discount" type="tns:discount"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--    GET Discount by ID-->
+
+    <!--    GET All Discounts-->
+    <xs:element name="getAllDiscountsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="discountId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllDiscountsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="discounts" type="tns:discounts"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--    GET All Discounts-->
+
+    <!--    DELETE Discount by ID-->
+    <xs:element name="deleteDiscountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="discountId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="deleteDiscountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--    DELETE Discount by ID-->
+
+    <!--    ADD Discount-->
+    <xs:element name="addDiscountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="discount" type="tns:discount"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addDiscountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--    ADD Discount-->
+
+    <!--    UPDATE Discount with ID-->
+    <xs:element name="updateDiscountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="discountId" type="xs:long"/>
+                <xs:element name="code" type="xs:string"/>
+                <xs:element name="discountPercentage" type="xs:integer"/>
+                <xs:element name="startDate" type="xs:date"/>
+                <xs:element name="endDate" type="xs:date"/>
+                <xs:element name="status" type="xs:boolean"/>
+                <xs:element name="discountTypeId" type="tns:discountType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="updateDiscountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--    Complex Types-->
+    <xs:complexType name="discount">
+        <xs:sequence>
+            <xs:element name="discountId" type="xs:long"/>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="discountPercentage" type="xs:integer"/>
+            <xs:element name="startDate" type="xs:date"/>
+            <xs:element name="endDate" type="xs:date"/>
+            <xs:element name="status" type="xs:boolean"/>
+            <xs:element name="discountTypeId" type="tns:discountType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="discountType">
+        <xs:sequence>
+            <xs:element name="discountTypeId" type="xs:long"/>
+            <xs:element name="category" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="role">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="USER"/>
+            <xs:enumeration value="ADMIN"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="discounts">
+        <xs:sequence>
+            <xs:element name="discount" type="tns:discount" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

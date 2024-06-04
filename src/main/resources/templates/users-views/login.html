@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>My-Discount</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.js"></script>
+    <style>
+        body {
+            background-image: url("/images/discount-bckg.jpg");
+            background-repeat: no-repeat, repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-6 offset-3 mt-3" style="padding-top: 45%">
+        <h1 style="color: aliceblue">My-Discount</h1>
+        <form class="form-control" method="post" th:action="@{/auth/login-success}">
+            <div class="mb-3 mt-3">
+                <label class="form-label">Email:</label>
+                <input type="email" class="form-control" name="email" th:field="${user.email}" required>
+                <span th:errors="${user.email}"></span>
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label">Password:</label>
+                <input type="password" class="form-control" name="password" th:field="${user.password}" required>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary">Login</button>
+
+        </form>
+        <p style="margin-top: 16px; margin-bottom: 16px">Not register yet? <a th:href="@{/auth/register}" class="btn btn-sm btn-info">Click here</a>
+        </p>
+
+    </div>
+
+
+</div>
+</body>
+</html>

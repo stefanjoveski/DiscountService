@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}">
+<head>
+  <meta charset="UTF-8">
+  <title>Discount Types</title>
+</head>
+<body>
+<div layout:fragment="content1">
+
+  <div class="container mt-3">
+    <div class="card">
+      <div class="card-header"> List of Discount Types</div>
+      <div class="card-body">
+        <form method="get" th:action="@{index}">
+          <input type="text" name="keyword" th:value="${keyword}">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <table class="table">
+          <thead>
+          <tr class="text-center">
+            <th scope="col">ID</th>
+            <th scope="col">Category</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Update</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="text-center" th:each="discountType:${listDiscountTypes}" th:order-by="${discountType.getCategory()}">
+            <td th:text="${discountType.getDiscountTypeId()}"></td>
+            <td th:text="${discountType.getCategory()}"></td>
+            <td>
+              <a class="btn btn-danger" onClick="return confirm('Are you sure')"
+                 th:href="@{/discount-type/delete(discountTypeId=${discountType.getDiscountTypeId()}, keyword=${keyword})}">Delete
+              </a>
+            </td>
+            <td>
+              <a class="btn btn-success"
+                 th:href="@{/discount-type/formUpdate(discountTypeId=${discountType.getDiscountTypeId()})}">Update
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

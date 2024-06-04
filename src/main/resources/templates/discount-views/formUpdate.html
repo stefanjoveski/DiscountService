@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{template}">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Discount</title>
+</head>
+<body>
+<div layout:fragment="content1">
+  <div class="col-md-6 offset-3 mt-3">
+    <form class="form-control" method="post" th:action="@{save}" th:object="${discount}">
+      <div class="mb-3 mt-3">
+        <label class="form-label">Id:</label>
+        <input type="number" class="form-control" name="discountId" th:value="${discount.getDiscountId()}"
+               readonly="readonly">
+      </div>
+      <div class="mb-3 mt-3">
+        <label class="form-label">Code:</label>
+        <input type="text" th:max="8" class="form-control" name="code"
+               th:value="${discount.getCode()}">
+      </div>
+      <div class="mb-3 mt-3">
+        <label class="form-label">Percentage:</label>
+        <input type="number" class="form-control" name="discountPercentage"
+               th:value="${discount.getDiscountPercentage()}">
+      </div>
+      <div class="mb-3 mt-3">
+        <label class="form-label">Start Date:</label>
+        <input type="date" class="form-control" name="startDate"
+               th:value="${discount.getStartDate()}">
+      </div>
+      <div>
+        <label class="form-label">End Date:</label>
+        <input type="date" class="form-control" name="endDate"
+               th:value="${discount.getEndDate()}">
+      </div>
+      <div>
+        <label class="form-label">Active:</label>
+        <input type="checkbox" name="status" class="mb-3 mt-3"
+               th:checked="${discount.isStatus()}">
+      </div>
+      <div class="mb-3 mt-3">
+        <label class="form-label">Discount Category:</label>
+        <select class="form-select" th:field="${discount.discountType}" name="discountType">
+          <option th:each="discountType:${listDiscountTypes}"
+                  th:text="${discountType.getCategory()}"
+                  th:value="${discountType.getDiscountTypeId()}"></option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+  </div>
+
+</div>
+</body>
+</html>

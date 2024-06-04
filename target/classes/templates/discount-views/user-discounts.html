@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}">
+<head>
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}"/>
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>
+    <meta charset="UTF-8">
+    <title>User Discounts</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <form method="get" th:action="@{user}">
+        <input type="text" name="percentage" th:value="${percentage}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <div class="container mt-3" th:each="discountType:${listDiscountTypes}" th:order-by="${discountType.getCategory()}">
+
+        <div class="card">
+            <div class="card-header">Active<h5 th:text="${discountType.getCategory()}"></h5></div>
+            <div class="card-body">
+
+                <table class="table">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">ID</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">%</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Activate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" th:each="discount:${listDiscounts}"
+                        th:order-by="${discount.getDiscountPercentage()}">
+                        <td th:if="${discount.getDiscountType().getDiscountTypeId() == discountType.getDiscountTypeId()}"
+                            th:text="${discount.getDiscountId()}"></td>
+                        <td th:if="${discount.getDiscountType().getDiscountTypeId() == discountType.getDiscountTypeId()}"
+                            th:text="${discount.getCode()}"></td>
+                        <td th:if="${discount.getDiscountType().getDiscountTypeId() == discountType.getDiscountTypeId()}"
+                            th:text="${discount.getDiscountPercentage()}"></td>
+                        <td th:if="${discount.getDiscountType().getDiscountTypeId() == discountType.getDiscountTypeId()}"
+                            th:text="${discount.getStartDate()}"></td>
+                        <td th:if="${discount.getDiscountType().getDiscountTypeId() == discountType.getDiscountTypeId()}"
+                            th:text="${discount.getEndDate()}"></td>
+
+                        <td th:if="${discount.getDiscountType().getDiscountTypeId() == discountType.getDiscountTypeId()}">
+                            <a class="btn btn-danger"
+                               th:href="@{/discounts/deactivate(discountId=${discount.getDiscountId()})}">Deactivate</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+
+        <div class="card mt-3">
+            <div class="card-header">
+                Other Available Discounts
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">ID</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">%</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Activate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" th:each="discount:${otherDiscounts}">
+                        <td th:text="${discount.getDiscountId()}"></td>
+                        <td th:text="${discount.getCode()}"></td>
+                        <td th:text="${discount.getDiscountPercentage()}"></td>
+                        <td th:text="${discount.getStartDate()}"></td>
+                        <td th:text="${discount.getEndDate()}"></td>
+                        <td th:text="${discount.getDiscountType().getCategory()}"></td>
+                        <td>
+                            <a class="btn btn-info"
+                               th:href="@{/discounts/activate(discountId=${discount.getDiscountId()})}">Activate</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{template}">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div layout:fragment="content1">
+
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-header">List of Users</div>
+            <div class="card-body">
+                <form method="get" th:action="@{index}">
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                <table class="table">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" th:each="user:${listUsers}">
+                        <td th:text="${user.getUserId()}"></td>
+                        <td th:text="${user.getName()}"></td>
+                        <td th:text="${user.getEmail()}"></td>
+                        <td>
+                            <a class="btn btn-danger" onClick="return confirm('Are you sure')"
+                               th:href="@{/users/delete(userId=${user.getUserId()}, keyword=${keyword})}">Delete
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

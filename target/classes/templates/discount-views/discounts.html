@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}">
+<head>
+    <meta charset="UTF-8">
+    <title>Discounts</title>
+</head>
+<body>
+<div layout:fragment="content1">
+
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-header">List of discounts</div>
+            <div class="card-body">
+                <form method="get" th:action="@{index}">
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                <table class="table">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">ID</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">%</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Update</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" th:each="discount:${listDiscounts}" th:order-by="${discount.getDiscountPercentage()}">
+                        <td th:text="${discount.getDiscountId()}"></td>
+                        <td th:text="${discount.getCode()}"></td>
+                        <td th:text="${discount.getDiscountPercentage()}"></td>
+                        <td th:text="${discount.getStartDate()}"></td>
+                        <td th:text="${discount.getEndDate()}"></td>
+                        <td th:text="${discount.isStatus()}"></td>
+                        <td th:text="${discount.getDiscountType().getCategory()}"></td>
+                        <td>
+                            <a class="btn btn-danger" onClick="return confirm('Are you sure')"
+                               th:href="@{/discounts/delete(discountId=${discount.getDiscountId()}, keyword=${keyword})}">Delete
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-success"
+                               th:href="@{/discounts/formUpdate(discountId=${discount.getDiscountId()})}">Update
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
